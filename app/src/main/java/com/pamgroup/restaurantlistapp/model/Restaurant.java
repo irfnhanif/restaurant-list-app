@@ -1,7 +1,6 @@
 package com.pamgroup.restaurantlistapp.model;
 
 public class Restaurant {
-
     private String restaurantId;
     private String name;
     private String address;
@@ -9,6 +8,16 @@ public class Restaurant {
     private String description;
     private String imageUrl;
 
+    public Restaurant(){
+
+    }
+
+    public Restaurant(String name, String address, String description, String businessHour){
+        this.name = name;
+        this.address = address;
+        this.description = description;
+        this.businessHour = businessHour;
+    }
     public String getRestaurantId() {
         return restaurantId;
     }
