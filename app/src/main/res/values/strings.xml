@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RestaurantListApp</string>
+    <string name="city">Kota Malang</string>
 </resources>

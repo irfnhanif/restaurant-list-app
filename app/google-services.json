@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "233089819867",
+    "firebase_url": "https://pam-final-project-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "pam-final-project",
+    "storage_bucket": "pam-final-project.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:233089819867:android:e8d332cca9082fb380d8fe",
+        "android_client_info": {
+          "package_name": "com.pamgroup.restaurantlistapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "233089819867-m5n352hoqv290509sv6ntr6uj01st9pu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDE56-Fenns5q_7GROxwtltznYmNrXQ8bU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "233089819867-m5n352hoqv290509sv6ntr6uj01st9pu.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
