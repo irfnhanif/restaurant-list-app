@@ -64,4 +64,9 @@ public class RestaurantDatabase {
         newRestaurantRef.child("description").setValue(description);
         newRestaurantRef.child("imageURL").setValue(imageURL);
     }
+
+    public void deleteRestaurant(String restaurantId) {
+        DatabaseReference restaurantRef = mDatabase.child("restaurants").child(restaurantId);
+        restaurantRef.removeValue();
+    }
 }
