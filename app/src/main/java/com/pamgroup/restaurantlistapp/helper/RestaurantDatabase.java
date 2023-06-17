@@ -46,13 +46,22 @@ public class RestaurantDatabase {
         return restaurantList;
     }
 
-    public void addRestaurant(String name, String address, String businessHour, String description, String imageUrl) {
+    public void addRestaurant(String name, String address, String businessHour, String description, String imageURL) {
         Restaurant newRestaurant = new Restaurant(name, address, businessHour, description);
 
-        DatabaseReference newItemRef = mDatabase.child("restaurants").push();
-        String newRestaurantId = newItemRef.getKey();
+        DatabaseReference newRestaurantRef = mDatabase.child("restaurants").push();
+        String newRestaurantId = newRestaurantRef.getKey();
 
         newRestaurant.setRestaurantId(newRestaurantId);
-        newItemRef.setValue(newRestaurant);
+        newRestaurantRef.setValue(newRestaurant);
+    }
+
+    public void editRestaurant(String restaurantId, String name, String address, String businessHour, String description, String imageURL) {
+        DatabaseReference newRestaurantRef = mDatabase.child("restaurants").child(restaurantId);
+        newRestaurantRef.child("name").setValue(name);
+        newRestaurantRef.child("address").setValue(address);
+        newRestaurantRef.child("businessHour").setValue(businessHour);
+        newRestaurantRef.child("description").setValue(description);
+        newRestaurantRef.child("imageURL").setValue(imageURL);
     }
 }
