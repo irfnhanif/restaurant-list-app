@@ -6,7 +6,7 @@ public class Restaurant {
     private String address;
     private String businessHour;
     private String description;
-    private String imageUrl;
+    private String imageURL;
 
     public Restaurant(){
 
@@ -58,11 +58,11 @@ public class Restaurant {
         this.description = description;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImageURL() {
+        return imageURL;
     }
 
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setImageURL(String imageURL) {
+        this.imageURL = imageURL;
     }
 }
