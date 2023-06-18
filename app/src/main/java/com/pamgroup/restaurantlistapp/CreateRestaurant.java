@@ -2,11 +2,13 @@ package com.pamgroup.restaurantlistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
@@ -15,6 +17,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 
     private EditText etName, etAddress, etBusinessHour, etDescription;
     private Button btnCreate;
+    private ImageView btnBack;
     private Restaurant restaurant;
 
     @Override
@@ -27,27 +30,36 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         etBusinessHour = findViewById(R.id.etJamBukaTutup);
         etDescription = findViewById(R.id.etDeskripsi);
         btnCreate = findViewById(R.id.btnCreate);
+        btnBack = findViewById(R.id.btn_back);
 
         btnCreate.setOnClickListener(this);
+        btnBack.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
-        String name = etName.getText().toString();
-        String address = etAddress.getText().toString();
-        String businessHour = etBusinessHour.getText().toString();
-        String description = etDescription.getText().toString();
+        switch (view.getId()){
+            case R.id.btnCreate:
+                String name = etName.getText().toString();
+                String address = etAddress.getText().toString();
+                String businessHour = etBusinessHour.getText().toString();
+                String description = etDescription.getText().toString();
 
-        if (!validateForm(name, address, businessHour, description))
-            return;
+                if (!validateForm(name, address, businessHour, description))
+                    return;
 
-        Thread thread = new Thread(() -> {
-            RestaurantDatabase database = new RestaurantDatabase();
-            database.addRestaurant(name, address, businessHour, description);
-        });
+                Thread thread = new Thread(() -> {
+                    RestaurantDatabase database = new RestaurantDatabase();
+                    database.addRestaurant(name, address, businessHour, description);
+                });
 
-        thread.start();
-        finish();
+                thread.start();
+                finish();
+                break;
+            case R.id.btn_back:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+        }
     }
 
     private boolean validateForm(String name, String address, String businessHour, String description) {

@@ -9,42 +9,45 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="161dp"
+        android:layout_marginTop="0dp"
+        android:src="@drawable/hero_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/recycler_image" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="26dp"
         android:layout_marginTop="20dp"
         android:backgroundTint="#000000"
         android:fontFamily="sans-serif-medium"
         android:text="Daftar Restoran"
-        android:textColor="#000000"
+        android:textColor="#45464F"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_restaurant_list"
         android:layout_width="360dp"
-        android:layout_height="400dp"
-        android:layout_marginTop="20dp"
+        android:layout_height="380dp"
+        android:layout_marginTop="8dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:listitem="@layout/restaurant_item_layout" />
 
     <ImageView
-        android:id="@+id/btn_add"
+        android:id="@+id/btn_add_restaurant"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_marginEnd="24dp"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/btn_add" />

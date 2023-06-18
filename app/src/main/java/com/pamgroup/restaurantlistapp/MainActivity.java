@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pamgroup.restaurantlistapp.helper.RestaurantCallback;
@@ -18,11 +19,10 @@ import com.pamgroup.restaurantlistapp.model.Restaurant;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
-
     private RestaurantDatabase mDatabase;
     private RecyclerView rvRestaurantList;
     private RestaurantAdapter adapter;
-    private Button btnAdd;
+    private ImageView btnAdd_restaurant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
         rvRestaurantList = findViewById(R.id.rv_restaurant_list);
-        btnAdd = findViewById(R.id.btn_add);
+        btnAdd_restaurant = findViewById(R.id.btn_add_restaurant);
 
         adapter = new RestaurantAdapter(this.getApplicationContext());
         mDatabase = new RestaurantDatabase();
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rvRestaurantList.setAdapter(adapter);
         rvRestaurantList.setLayoutManager(new LinearLayoutManager(this));
 
-        btnAdd.setOnClickListener(this);
+        btnAdd_restaurant.setOnClickListener(this);
     }
 
     @Override
@@ -61,7 +61,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        Intent addIntent = new Intent(this, CreateRestaurant.class);
-        startActivity(addIntent);
+        switch (view.getId()){
+            case R.id.btn_add_restaurant:
+                Intent addIntent = new Intent(this, CreateRestaurant.class);
+                startActivity(addIntent);
+                break;
+            //tinggal nambahin case lain
+        }
     }
 }

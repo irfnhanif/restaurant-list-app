@@ -8,25 +8,23 @@
     tools:context=".CreateRestaurant">
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
+    <ImageView
         android:id="@+id/btn_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/white"
-        app:fabSize="normal"
         app:layout_anchorGravity="top|left"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/back_icon" />
+        app:srcCompat="@drawable/btn_back" />
 
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="34dp"
+        android:layout_marginTop="32dp"
         android:text="Buat Restoran Baru"
         android:textColor="#000000"
         android:textSize="20sp"
@@ -56,9 +54,9 @@
         <EditText
             android:id="@+id/etNamaRestoran"
             android:layout_width="380dp"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_input"
-            android:ems="14"
+            android:ems="10"
             android:inputType="textPersonName"
             android:padding="8dp" />
 
@@ -75,7 +73,7 @@
         <EditText
             android:id="@+id/etJamBukaTutup"
             android:layout_width="380dp"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
             android:inputType="textPersonName"
@@ -94,7 +92,7 @@
         <EditText
             android:id="@+id/etAlamat"
             android:layout_width="380dp"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
             android:inputType="textPersonName"
@@ -113,7 +111,7 @@
         <EditText
             android:id="@+id/etDeskripsi"
             android:layout_width="380dp"
-            android:layout_height="36dp"
+            android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
             android:gravity="start|top"
