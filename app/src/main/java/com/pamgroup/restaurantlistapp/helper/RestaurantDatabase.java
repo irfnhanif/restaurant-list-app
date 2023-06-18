@@ -25,26 +25,27 @@ public class RestaurantDatabase {
         mAuth = FirebaseAuth.getInstance();
     }
 
-    public List<Restaurant> getAllRestaurants(){
-        List<Restaurant> restaurantList = new ArrayList<>();
-        mDatabase.child("restaurants").addValueEventListener(new ValueEventListener() {
+    public void getAllRestaurants(RestaurantCallback callback) {
+        mDatabase.child("restaurants").addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                List<Restaurant> restaurantList = new ArrayList<>();
                 for (DataSnapshot restaurantSnapshot : snapshot.getChildren()) {
                     Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
                     if (restaurant != null) {
                         restaurantList.add(restaurant);
                     }
                 }
+                callback.onRestaurantListReceived(restaurantList);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Log.e("ERROR",error.getMessage());
+                Log.e("ERROR", error.getMessage());
             }
         });
-        return restaurantList;
     }
+
 
     public void addRestaurant(String name, String address, String businessHour, String description, String imageURL) {
         Restaurant newRestaurant = new Restaurant(name, address, businessHour, description);
