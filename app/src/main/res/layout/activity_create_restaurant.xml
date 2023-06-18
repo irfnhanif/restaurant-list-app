@@ -136,7 +136,7 @@
         android:layout_width="160dp"
         android:layout_height="60dp"
         android:layout_marginBottom="28dp"
-        android:backgroundTint="#367700"
+        android:backgroundTint="@color/button_add"
         android:text="Buat Restoran"
         android:textAllCaps="false"
         app:cornerRadius="10dp"
