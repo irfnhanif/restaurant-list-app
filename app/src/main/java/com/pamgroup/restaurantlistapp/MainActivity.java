@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,16 +32,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnAdd = findViewById(R.id.btn_add);
 
         adapter = new RestaurantAdapter(this.getApplicationContext());
-
-        mDatabase.getAllRestaurants(restaurantList -> {
-            adapter.setRestaurantList(restaurantList);
-            adapter.notifyDataSetChanged();
-        });
+        mDatabase = new RestaurantDatabase();
 
         rvRestaurantList.setAdapter(adapter);
         rvRestaurantList.setLayoutManager(new LinearLayoutManager(this));
 
         btnAdd.setOnClickListener(this);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mDatabase.getAllRestaurants(new RestaurantCallback() {
+            @Override
+            public void onRestaurantListReceived(List<Restaurant> restaurantList) {
+                adapter.setRestaurantList(restaurantList);
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(String errorMessage) {
+                Log.e("ERROR-GET-DATA", errorMessage);
+            }
+        });
     }
 
     @Override

@@ -16,12 +16,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
     private Context context;
-    private List<Restaurant>  restaurantList;
+    private List<Restaurant> restaurantList = new ArrayList<>();
 
     public RestaurantAdapter(Context context) {
         this.context = context;
@@ -58,15 +59,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         restaurantBundle.putString("imageURL", restaurant.getImageURL());
 
         holder.acivEdit.setOnClickListener(view -> {
-            Intent editIntent = new Intent(this, EditRestaurant.class);
+            Intent editIntent = new Intent(holder.itemView.getContext(), EditRestaurant.class);
             editIntent.putExtra("restaurantBundle", restaurantBundle);
-            context.startActivity(editIntent);
+            holder.itemView.getContext().startActivity(editIntent);
         });
 
         holder.ibDetail.setOnClickListener(view -> {
-            Intent detailIntent = new Intent(this, DetailRestaurant.class);
+            Intent detailIntent = new Intent(holder.itemView.getContext(), DetailRestaurant.class);
             detailIntent.putExtra("restaurantBundle", restaurantBundle);
-            context.startActivity(detailIntent);
+            holder.itemView.getContext().startActivity(detailIntent);
         });
 
         holder.acivDelete.setOnClickListener(view -> {
