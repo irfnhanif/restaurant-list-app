@@ -57,6 +57,7 @@
             android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
+            android:textColor="@color/black"
             android:inputType="textPersonName"
             android:padding="8dp" />
 
@@ -76,6 +77,7 @@
             android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
+            android:textColor="@color/black"
             android:inputType="textPersonName"
             android:padding="8dp" />
 
@@ -95,6 +97,7 @@
             android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
+            android:textColor="@color/black"
             android:inputType="textPersonName"
             android:padding="8dp" />
 
@@ -114,6 +117,7 @@
             android:layout_height="40dp"
             android:background="@drawable/shape_input"
             android:ems="10"
+            android:textColor="@color/black"
             android:gravity="start|top"
             android:inputType="textMultiLine"
             android:padding="8dp" />
@@ -127,6 +131,12 @@
             android:text="Gambar Restoran"
             android:textColor="#000000"
             android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/upload_image"
+            android:layout_width="380dp"
+            android:layout_height="178dp"
+            android:src="@drawable/image_upload" />
     </LinearLayout>
 
     <Button
