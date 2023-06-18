@@ -20,7 +20,6 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
     private ActivityCreateRestaurantBinding binding;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
-
     Restaurant restaurant;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,24 +79,27 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
             return;
         }
 
-        String NamaRestoran = binding.etNamaRestoran.getText().toString();
-        String Alamat = binding.etAlamat.getText().toString();
-        String Description = binding.etDeskripsi.getText().toString();
-        String BusinessHour = binding.etJamBukaTutup.getText().toString();
+        Thread t = new Thread(() -> {
 
-        Restaurant baru = new Restaurant(NamaRestoran, Alamat, Description, BusinessHour);
-
-        databaseReference.child("restaurants").push().setValue(baru)
-            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-                @Override
-                public void onSuccess(Void unused) {
-                    Toast.makeText(CreateRestaurant.this, "Berhasil", Toast.LENGTH_SHORT).show();
-                }
-        }).addOnFailureListener(this, new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Toast.makeText(CreateRestaurant.this, "Gagal", Toast.LENGTH_SHORT).show();
-            }
         });
+//        String NamaRestoran = binding.etNamaRestoran.getText().toString();
+//        String Alamat = binding.etAlamat.getText().toString();
+//        String Description = binding.etDeskripsi.getText().toString();
+//        String BusinessHour = binding.etJamBukaTutup.getText().toString();
+//
+//        Restaurant baru = new Restaurant(NamaRestoran, Alamat, Description, BusinessHour);
+//
+//        databaseReference.child("restaurants").push().setValue(baru)
+//            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void unused) {
+//                    Toast.makeText(CreateRestaurant.this, "Berhasil", Toast.LENGTH_SHORT).show();
+//                }
+//        }).addOnFailureListener(this, new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(CreateRestaurant.this, "Gagal", Toast.LENGTH_SHORT).show();
+//            }
+//        });
     }
 }

@@ -15,6 +15,12 @@
         android:theme="@style/Theme.RestaurantListApp"
         tools:targetApi="31">
         <activity
+            android:name=".DetailRestaurant"
+            android:exported="false" />
+        <activity
+            android:name=".EditRestaurant"
+            android:exported="false" />
+        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
@@ -23,12 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".CreateRestaurant"
-            android:exported="true">
-
-        </activity>
+            android:exported="true" />
     </application>
 
 </manifest>
