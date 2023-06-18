@@ -50,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 adapter.setRestaurantList(restaurantList);
                 adapter.notifyDataSetChanged();
             }
-
             @Override
             public void onFailure(String errorMessage) {
                 Log.e("ERROR-GET-DATA", errorMessage);

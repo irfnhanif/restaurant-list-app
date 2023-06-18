@@ -16,8 +16,9 @@ import com.pamgroup.restaurantlistapp.model.Restaurant;
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etName, etAddress, etBusinessHour, etDescription;
-    private Button btnCreate;
+    private Button btnCreate, btnHapus;
     private ImageView btnBack;
+
     private Restaurant restaurant;
 
     @Override
@@ -29,11 +30,13 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         etAddress = findViewById(R.id.etAlamat);
         etBusinessHour = findViewById(R.id.etJamBukaTutup);
         etDescription = findViewById(R.id.etDeskripsi);
-        btnCreate = findViewById(R.id.btnCreate);
         btnBack = findViewById(R.id.btn_back);
+        btnHapus = findViewById(R.id.btn_hapus);
+        btnCreate = findViewById(R.id.btnCreate);
 
         btnCreate.setOnClickListener(this);
         btnBack.setOnClickListener(this);
+        btnHapus.setOnClickListener(this);
     }
 
     @Override
@@ -59,6 +62,13 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
             case R.id.btn_back:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_hapus:
+                etName.setText("");
+                etAddress.setText("");
+                etBusinessHour.setText("");
+                etDescription.setText("");
+                break;
         }
     }
 
