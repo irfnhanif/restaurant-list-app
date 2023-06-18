@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface RestaurantCallback {
     void onRestaurantListReceived(List<Restaurant> restaurantList);
+    void onFailure(String errorMessage);
 }

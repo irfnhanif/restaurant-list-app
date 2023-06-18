@@ -6,82 +6,86 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.pamgroup.restaurantlistapp.databinding.ActivityCreateRestaurantBinding;
+import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
-    private ActivityCreateRestaurantBinding binding;
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
-    Restaurant restaurant;
+    private EditText etName, etAddress, etBusinessHour, etDescription;
+    private Button btnSubmit;
+    private Restaurant restaurant;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityCreateRestaurantBinding.inflate(getLayoutInflater());
         setContentView(R.layout.activity_create_restaurant);
 
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
-        restaurant = new Restaurant();
+        etName = findViewById(R.id.etNamaRestoran);
+        etAddress = findViewById(R.id.etAlamat);
+        etBusinessHour = findViewById(R.id.etJamBukaTutup);
+        etDescription = findViewById(R.id.etDeskripsi);
+        btnSubmit = findViewById(R.id.btnSubmit);
 
-        binding.btnSubmit.setOnClickListener(this);
+        btnSubmit.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        String name = etName.getText().toString();
+        String address = etAddress.getText().toString();
+        String businessHour = etBusinessHour.getText().toString();
+        String description = etDescription.getText().toString();
 
-    }
-
-    private boolean validateForm(){
-        boolean result = true;
-
-        if (TextUtils.isEmpty(binding.etNamaRestoran.getText().toString())){
-            binding.etNamaRestoran.setError("Required");
-            result = false;
-        } else {
-            binding.etNamaRestoran.setError(null);
-        }
-
-        if (TextUtils.isEmpty(binding.etAlamat.getText().toString())){
-            binding.etAlamat.setError("Required");
-            result = false;
-        } else {
-            binding.etAlamat.setError(null);
-        }
-
-        if (TextUtils.isEmpty(binding.etDeskripsi.getText().toString())){
-            binding.etDeskripsi.setError("Required");
-            result = false;
-        } else {
-            binding.etDeskripsi.setError(null);
-        }
-
-        if (TextUtils.isEmpty(binding.etJamBukaTutup.getText().toString())){
-            binding.etJamBukaTutup.setError("Required");
-            result = false;
-        } else {
-            binding.etJamBukaTutup.setError(null);
-        }
-
-        return result;
-    }
-
-    public void submitData(){
-        if(!validateForm()){
+        if (!validateForm(name, address, businessHour, description))
             return;
+
+        Thread thread = new Thread(() -> {
+            RestaurantDatabase database = new RestaurantDatabase();
+            database.addRestaurant(name, address, businessHour, description);
+        });
+
+        thread.start();
+        finish();
+    }
+
+    private boolean validateForm(String name, String address, String businessHour, String description) {
+        if (TextUtils.isEmpty(name)) {
+            etName.setError("Masukkan nama restoran");
+            return false;
         }
 
-        Thread t = new Thread(() -> {
+        if (TextUtils.isEmpty(address)) {
+            etAddress.setError("Masukkan alamat restoran");
+            return false;
+        }
 
-        });
+        if (TextUtils.isEmpty(description)) {
+            etDescription.setError("Masukkan deskripsi restoran");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(businessHour)) {
+            etBusinessHour.setError("Masukkan jam buka-tutup restoran");
+            return false;
+        }
+
+        return true;
+    }
+}
+//
+//    public void submitData(){
+//        if(!validateForm()){
+//            return;
+//        }
+//
 //        String NamaRestoran = binding.etNamaRestoran.getText().toString();
 //        String Alamat = binding.etAlamat.getText().toString();
 //        String Description = binding.etDeskripsi.getText().toString();
@@ -101,5 +105,4 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 //                Toast.makeText(CreateRestaurant.this, "Gagal", Toast.LENGTH_SHORT).show();
 //            }
 //        });
-    }
-}
+//    }
