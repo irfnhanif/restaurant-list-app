@@ -1,13 +1,17 @@
 package com.pamgroup.restaurantlistapp;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatImageView;
+import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.pamgroup.restaurantlistapp.model.Restaurant;
@@ -17,7 +21,7 @@ import java.util.List;
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
 
     private Context context;
-    private List<Restaurant> restaurantList;
+    private List<Restaurant>  restaurantList;
 
     public RestaurantAdapter(Context context) {
         this.context = context;
@@ -45,8 +49,24 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.tvName.setText(restaurant.getName());
         holder.tvAddress.setText(restaurant.getAddress());
 
-        holder.acivEdit.setOnClickListener(view -> {
+        Bundle restaurantBundle = new Bundle();
+        restaurantBundle.putString("restaurantId", restaurant.getRestaurantId());
+        restaurantBundle.putString("name", restaurant.getName());
+        restaurantBundle.putString("address", restaurant.getRestaurantId());
+        restaurantBundle.putString("businessHour", restaurant.getBusinessHour());
+        restaurantBundle.putString("description", restaurant.getDescription());
+        restaurantBundle.putString("imageURL", restaurant.getImageURL());
 
+        holder.acivEdit.setOnClickListener(view -> {
+            Intent editIntent = new Intent(this, EditRestaurant.class);
+            editIntent.putExtra("restaurantBundle", restaurantBundle);
+            context.startActivity(editIntent);
+        });
+
+        holder.ibDetail.setOnClickListener(view -> {
+            Intent detailIntent = new Intent(this, DetailRestaurant.class);
+            detailIntent.putExtra("restaurantBundle", restaurantBundle);
+            context.startActivity(detailIntent);
         });
 
         holder.acivDelete.setOnClickListener(view -> {
@@ -65,6 +85,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         private TextView tvName, tvAddress;
         private AppCompatImageView acivEdit, acivDelete;
+        private ImageButton ibDetail;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -73,6 +94,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             tvAddress = itemView.findViewById(R.id.tv_address);
             acivEdit = itemView.findViewById(R.id.aciv_edit);
             acivDelete = itemView.findViewById(R.id.aciv_delete);
+            ibDetail = itemView.findViewById(R.id.ib_detail);
         }
     }
 }
