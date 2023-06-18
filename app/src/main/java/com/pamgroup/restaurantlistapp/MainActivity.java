@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.pamgroup.restaurantlistapp.helper.RestaurantCallback;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
@@ -53,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailure(String errorMessage) {
                 Log.e("ERROR-GET-DATA", errorMessage);
+                Toast.makeText(MainActivity.this, "Failed to get restaurants data", Toast.LENGTH_SHORT).show();
             }
         });
     }
