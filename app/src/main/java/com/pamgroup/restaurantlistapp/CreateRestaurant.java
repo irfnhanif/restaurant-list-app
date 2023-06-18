@@ -1,5 +1,7 @@
 package com.pamgroup.restaurantlistapp;
 
+import static java.io.File.createTempFile;
+
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
@@ -7,8 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -16,9 +20,15 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.common.util.IOUtils;
 import com.pamgroup.restaurantlistapp.helper.ImageStorage;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.net.URLConnection;
 
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
@@ -55,7 +65,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                         Uri imageURI = result.getData().getData();
                         Toast.makeText(this, imageURI.toString(), Toast.LENGTH_SHORT).show();
                         if (imageURI != null) {
-                            imageStorage.uploadImage(imageURI.toString());
+                            String filePath = getFilePathFromContentUri(imageURI);
+                            imageStorage.uploadImage(filePath);
                         }
                     }
                 });
@@ -128,6 +139,18 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         imageIntent.setType("image/*");
         imagePickerLauncher.launch(imageIntent);
         Toast.makeText(this, "tes button", Toast.LENGTH_SHORT).show();
+    }
+
+    private String getFilePathFromContentUri(Uri contentUri) {
+        String filePath = null;
+        String[] projection = {MediaStore.Images.Media.DATA};
+        Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
+            filePath = cursor.getString(columnIndex);
+            cursor.close();
+        }
+        return filePath;
     }
 }
 
