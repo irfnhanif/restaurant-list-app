@@ -1,30 +1,39 @@
 package com.pamgroup.restaurantlistapp;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.pamgroup.restaurantlistapp.helper.ImageStorage;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
+    private ImageStorage imageStorage;
     private EditText etName, etAddress, etBusinessHour, etDescription;
-    private Button btnCreate, btnHapus;
+    private Button btnCreate, btnHapus, btnChooseImage;
     private ImageView btnBack;
-
-    private Restaurant restaurant;
+    private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_restaurant);
+
+        imageStorage = new ImageStorage();
 
         etName = findViewById(R.id.etNamaRestoran);
         etAddress = findViewById(R.id.etAlamat);
@@ -33,10 +42,23 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         btnBack = findViewById(R.id.btn_back);
         btnHapus = findViewById(R.id.btn_hapus);
         btnCreate = findViewById(R.id.btnCreate);
+        btnChooseImage = findViewById(R.id.btn_choose_image);
 
         btnCreate.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btnHapus.setOnClickListener(this);
+        btnChooseImage.setOnClickListener(this);
+
+        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                        Uri imageURI = result.getData().getData();
+                        Toast.makeText(this, imageURI.toString(), Toast.LENGTH_SHORT).show();
+                        if (imageURI != null) {
+                            imageStorage.uploadImage(imageURI.toString());
+                        }
+                    }
+                });
     }
 
     @Override
@@ -59,6 +81,11 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 thread.start();
                 finish();
                 break;
+
+            case R.id.btn_choose_image:
+                selectImage();
+                break;
+
             case R.id.btn_back:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -95,30 +122,12 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 
         return true;
     }
+
+    private void selectImage() {
+        Intent imageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        imageIntent.setType("image/*");
+        imagePickerLauncher.launch(imageIntent);
+        Toast.makeText(this, "tes button", Toast.LENGTH_SHORT).show();
+    }
 }
-//
-//    public void submitData(){
-//        if(!validateForm()){
-//            return;
-//        }
-//
-//        String NamaRestoran = binding.etNamaRestoran.getText().toString();
-//        String Alamat = binding.etAlamat.getText().toString();
-//        String Description = binding.etDeskripsi.getText().toString();
-//        String BusinessHour = binding.etJamBukaTutup.getText().toString();
-//
-//        Restaurant baru = new Restaurant(NamaRestoran, Alamat, Description, BusinessHour);
-//
-//        databaseReference.child("restaurants").push().setValue(baru)
-//            .addOnSuccessListener(this, new OnSuccessListener<Void>() {
-//                @Override
-//                public void onSuccess(Void unused) {
-//                    Toast.makeText(CreateRestaurant.this, "Berhasil", Toast.LENGTH_SHORT).show();
-//                }
-//        }).addOnFailureListener(this, new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(CreateRestaurant.this, "Gagal", Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
+
