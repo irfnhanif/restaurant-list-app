@@ -5,6 +5,7 @@ import static java.io.File.createTempFile;
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
@@ -38,6 +39,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
     private ImageView btnBack,  btnChooseImage;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
+    private static final int PICK_IMAGE_REQUEST = 1;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,17 +62,18 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         btnHapus.setOnClickListener(this);
         btnChooseImage.setOnClickListener(this);
 
-        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        Uri imageURI = result.getData().getData();
-                        Toast.makeText(this, imageURI.toString(), Toast.LENGTH_SHORT).show();
-                        if (imageURI != null) {
-                            String filePath = getFilePathFromContentUri(imageURI);
-                            imageStorage.uploadImage(filePath);
-                        }
-                    }
-                });
+//        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
+//                result -> {
+//                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+//                        Uri imageURI = result.getData().getData();
+//                        Toast.makeText(this, imageURI.toString(), Toast.LENGTH_SHORT).show();
+//                        btnChooseImage.setImageURI(imageURI);
+//                        if (imageURI != null) {
+//                            String filePath = getFilePathFromContentUri(imageURI);
+//                            imageStorage.uploadImage(filePath);
+//                        }
+//                    }
+//                });
     }
 
     @Override
@@ -137,8 +141,24 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
     private void selectImage() {
         Intent imageIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imageIntent.setType("image/*");
-        imagePickerLauncher.launch(imageIntent);
+        imageIntent.setAction(Intent.ACTION_GET_CONTENT);
+//        imagePickerLauncher.launch(imageIntent);
         Toast.makeText(this, "tes button", Toast.LENGTH_SHORT).show();
+        startActivityForResult(Intent.createChooser(imageIntent, "Select Image"), PICK_IMAGE_REQUEST);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri selectedImageUri = data.getData();
+            btnChooseImage.setImageURI(selectedImageUri);
+//            String filePath = getRealPathFromUri(selectedImageUri);
+            if (selectedImageUri != null) {
+                String filePath = getFilePathFromContentUri(selectedImageUri);
+                imageStorage.uploadImage(filePath);
+            }
+        }
     }
 
     private String getFilePathFromContentUri(Uri contentUri) {
