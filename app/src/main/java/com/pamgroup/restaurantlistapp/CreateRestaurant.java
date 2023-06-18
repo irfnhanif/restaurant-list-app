@@ -24,8 +24,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 
     private ImageStorage imageStorage;
     private EditText etName, etAddress, etBusinessHour, etDescription;
-    private Button btnCreate, btnHapus, btnChooseImage;
-    private ImageView btnBack;
+    private Button btnCreate, btnHapus;
+    private ImageView btnBack,  btnChooseImage;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
 
     @Override
@@ -42,7 +42,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         btnBack = findViewById(R.id.btn_back);
         btnHapus = findViewById(R.id.btn_hapus);
         btnCreate = findViewById(R.id.btnCreate);
-        btnChooseImage = findViewById(R.id.btn_choose_image);
+        btnChooseImage = findViewById(R.id.upload_image);
 
         btnCreate.setOnClickListener(this);
         btnBack.setOnClickListener(this);
@@ -82,7 +82,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 finish();
                 break;
 
-            case R.id.btn_choose_image:
+            case R.id.upload_image:
                 selectImage();
                 break;
 
