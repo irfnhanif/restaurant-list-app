@@ -1,6 +1,5 @@
 package com.pamgroup.restaurantlistapp;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -8,19 +7,14 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
     private EditText etName, etAddress, etBusinessHour, etDescription;
-    private Button btnSubmit;
+    private Button btnCreate;
     private Restaurant restaurant;
 
     @Override
@@ -32,9 +26,9 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         etAddress = findViewById(R.id.etAlamat);
         etBusinessHour = findViewById(R.id.etJamBukaTutup);
         etDescription = findViewById(R.id.etDeskripsi);
-        btnSubmit = findViewById(R.id.btnSubmit);
+        btnCreate = findViewById(R.id.btnCreate);
 
-        btnSubmit.setOnClickListener(this);
+        btnCreate.setOnClickListener(this);
     }
 
     @Override
