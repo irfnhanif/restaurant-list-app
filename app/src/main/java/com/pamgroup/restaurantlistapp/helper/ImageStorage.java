@@ -15,6 +15,11 @@ public class ImageStorage {
     private FirebaseStorage storage;
     private StorageReference storageRef, imageRef;
     private Uri file;
+
+    public String getImageURL() {
+        return imageURL;
+    }
+
     private String imageURL;
 
     public ImageStorage() {
@@ -22,8 +27,8 @@ public class ImageStorage {
         storageRef = storage.getReference();
     }
 
-    public Task<Uri> uploadImage(String filePath) {
-        file = Uri.fromFile(new File(filePath));
+    public Task<Uri> uploadImage(Uri uriContent) {
+        file = uriContent;
         imageRef = storageRef.child("images/" + file.getLastPathSegment());
         UploadTask uploadTask = imageRef.putFile(file);
 
