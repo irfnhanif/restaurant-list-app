@@ -4,6 +4,171 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/background"
     tools:context=".EditRestaurant">
+
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_anchorGravity="top|left"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/btn_back" />
+
+    <TextView
+        android:id="@+id/tvRestoran"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
+        android:text="Buat Restoran Baru"
+        android:textColor="#000000"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toEndOf="@+id/btn_back"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvRestoran">
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:text="Nama Restoran"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etNamaRestoran"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_input"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Jam Buka dan Tutup"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etJamBukaTutup"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_input"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Alamat"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etAlamat"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_input"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:inputType="textPersonName"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Deskripsi"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <EditText
+            android:id="@+id/etDeskripsi"
+            android:layout_width="380dp"
+            android:layout_height="40dp"
+            android:background="@drawable/shape_input"
+            android:ems="10"
+            android:textColor="@color/black"
+            android:gravity="start|top"
+            android:inputType="textMultiLine"
+            android:padding="8dp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="380dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="4dp"
+            android:text="Gambar Restoran"
+            android:textColor="#000000"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:id="@+id/upload_image"
+            android:layout_width="380dp"
+            android:layout_height="178dp"
+            android:src="@drawable/image_upload" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="@color/button_add"
+        android:text="Buat Restoran"
+        android:textAllCaps="false"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/btn_hapus" />
+
+    <Button
+        android:id="@+id/btn_hapus"
+        android:layout_width="160dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="#E6E6E6"
+        android:text="Kosongkan"
+        android:textAllCaps="false"
+        android:textColor="#FC7681"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btnCreate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeColor="#FC7681"
+        app:strokeWidth="1dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

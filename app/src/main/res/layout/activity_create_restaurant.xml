@@ -20,7 +20,7 @@
         app:srcCompat="@drawable/btn_back" />
 
     <TextView
-        android:id="@+id/tvTitle"
+        android:id="@+id/tvRestoran"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
@@ -41,7 +41,7 @@
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvTitle">
+        app:layout_constraintTop_toBottomOf="@+id/tvRestoran">
 
         <TextView
             android:id="@+id/textView3"
