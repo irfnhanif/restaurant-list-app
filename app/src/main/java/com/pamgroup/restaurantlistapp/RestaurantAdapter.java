@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -122,6 +123,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         private AppCompatImageView acivEdit, acivDelete;
         private ImageButton ibDetail;
 
+        private ImageView image;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -130,6 +133,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             acivEdit = itemView.findViewById(R.id.aciv_edit);
             acivDelete = itemView.findViewById(R.id.aciv_delete);
             ibDetail = itemView.findViewById(R.id.ib_detail);
+
+            image = itemView.findViewById(R.id.upload_image);
         }
     }
 }
