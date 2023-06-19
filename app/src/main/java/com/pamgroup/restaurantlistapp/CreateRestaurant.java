@@ -80,7 +80,6 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                     RestaurantDatabase database = new RestaurantDatabase();
                     database.addRestaurant(name, address, businessHour, description, imageURL);
                 });
-
                 thread.start();
                 finish();
                 break;
@@ -127,11 +126,13 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
     }
 
     private void selectImage() {
-        Intent imageIntent = new Intent(Intent.ACTION_GET_CONTENT);
-        imageIntent.setType("image/*");
-        imageIntent.setAction(Intent.ACTION_GET_CONTENT);
-        Toast.makeText(this, "tes button", Toast.LENGTH_SHORT).show();
-        startActivityForResult(Intent.createChooser(imageIntent, "Select Image"), PICK_IMAGE_REQUEST);
+        Thread thread = new Thread(() -> {
+            Intent imageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+            imageIntent.setType("image/*");
+            imageIntent.setAction(Intent.ACTION_GET_CONTENT);
+            startActivityForResult(Intent.createChooser(imageIntent, "Select Image"), PICK_IMAGE_REQUEST);
+        });
+        thread.start();
     }
 
     @Override
@@ -139,10 +140,13 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
-            btnChooseImage.setImageURI(selectedImageUri);
-            if (selectedImageUri != null) {
-                imageStorage.uploadImage(selectedImageUri);
-            }
+            Thread thread = new Thread(() -> {
+                if (selectedImageUri != null) {
+                    imageStorage.uploadImage(selectedImageUri);
+                }
+            });
+            thread.start();
+            runOnUiThread(() -> btnChooseImage.setImageURI(selectedImageUri));
         }
     }
 }

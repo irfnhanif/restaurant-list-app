@@ -115,13 +115,13 @@
         <EditText
             android:id="@+id/etDeskripsi"
             android:layout_width="380dp"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:background="@drawable/shape_input"
             android:ems="10"
-            android:textColor="@color/black"
             android:gravity="start|top"
             android:inputType="textMultiLine"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:textColor="@color/black" />
 
         <TextView
             android:id="@+id/textView7"
