@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rvRestaurantList = findViewById(R.id.rv_restaurant_list);
         btnAdd_restaurant = findViewById(R.id.btn_add_restaurant);
 
-        adapter = new RestaurantAdapter(this.getApplicationContext());
+        adapter = new RestaurantAdapter(this);
         mDatabase = new RestaurantDatabase();
 
         rvRestaurantList.setAdapter(adapter);

@@ -4,6 +4,8 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -14,6 +16,7 @@ import com.pamgroup.restaurantlistapp.model.Restaurant;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class RestaurantDatabase {
     private DatabaseReference mDatabase;
@@ -65,8 +68,20 @@ public class RestaurantDatabase {
         newRestaurantRef.child("description").setValue(description);
         newRestaurantRef.child("imageURL").setValue(imageURL);
     }
-    public void deleteRestaurant(String restaurantId) {
+    public void deleteRestaurant(String restaurantId, RestaurantDatabase.DatabaseInterface di) {
         DatabaseReference restaurantRef = mDatabase.child("restaurants").child(restaurantId);
-        restaurantRef.removeValue();
+        restaurantRef.removeValue().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                di.onDeleteRestaurant(true);
+            } else {
+                Log.e("ERROR", Objects.requireNonNull(task.getException()).getMessage());
+                di.onDeleteRestaurant(false);
+            }
+        });
     }
+
+    public interface DatabaseInterface {
+        void onDeleteRestaurant(boolean isSuccess);
+    }
+
 }

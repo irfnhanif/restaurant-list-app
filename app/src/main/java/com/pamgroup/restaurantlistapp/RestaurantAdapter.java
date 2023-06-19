@@ -16,6 +16,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
 import java.util.ArrayList;
@@ -73,9 +74,38 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         });
 
         holder.acivDelete.setOnClickListener(view -> {
+            AlertDialog.Builder builder = new AlertDialog.Builder(context);
+            builder.setTitle("Hapus Menu?");
+            builder.setMessage("Anda yakin ingin hapus " + restaurantList.get(holder.getAdapterPosition()).getName() +"?");
+            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                // Konfirmasi pilihan
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int position = holder.getAdapterPosition();
+                    if (position != RecyclerView.NO_POSITION) {
+                        Thread thread = new Thread(() -> {
+                            RestaurantDatabase database = new RestaurantDatabase();
+                            RestaurantDatabase.DatabaseInterface di = isSuccess -> {
+                                if (isSuccess) {
+                                    restaurantList.remove(position);
+                                    notifyItemRemoved(position);
+                                }
+                            };
+                            database.deleteRestaurant(restaurantList.get(position).getRestaurantId(), di);
+                        });
+                        thread.start();
+                    }
+                }
+            });
+            // Batal pilihan
+            builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
 
-
-
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
         });
     }
 
@@ -100,43 +130,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             acivEdit = itemView.findViewById(R.id.aciv_edit);
             acivDelete = itemView.findViewById(R.id.aciv_delete);
             ibDetail = itemView.findViewById(R.id.ib_detail);
-
-            // Menambah aksi saat diklik
-            acivDelete.setOnClickListener(new View.OnClickListener() {
-
-                // Menambah alert dialog
-                @Override
-                public void onClick(View v) {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
-                    builder.setTitle("Hapus Menu?");
-                    builder.setMessage("Anda yakin ingin hapus ? " + restaurantList);
-                    builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                        // Konfirmasi pilihan
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            int position = getAdapterPosition();
-
-                            if (position != RecyclerView.NO_POSITION) {
-                                restaurantList.remove(getAdapterPosition());
-                                notifyItemRemoved(getAdapterPosition());
-                            }
-
-                        }
-                    });
-                    // Batal pilihan
-                    builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-
-                        }
-                    });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
-
-            }
-
-            );
         }
     }
 }
