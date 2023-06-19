@@ -7,12 +7,25 @@
     tools:context=".DetailRestaurant">
 
     <ImageView
-        android:id="@+id/imageView2"
+        android:id="@+id/ivDetailRestoran"
         android:layout_width="match_parent"
         android:layout_height="218dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        app:layout_anchorGravity="top|left"
+        app:layout_constraintStart_toStartOf="@+id/ivDetailRestoran"
+        app:layout_constraintTop_toTopOf="@+id/ivDetailRestoran"
+        app:srcCompat="@drawable/btn_back" />
 
     <LinearLayout
         android:id="@+id/linearLayout2"
@@ -23,7 +36,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+        app:layout_constraintTop_toBottomOf="@+id/ivDetailRestoran">
 
         <TextView
             android:id="@+id/tvRestoran"

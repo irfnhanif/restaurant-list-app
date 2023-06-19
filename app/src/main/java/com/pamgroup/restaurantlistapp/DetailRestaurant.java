@@ -2,7 +2,9 @@ package com.pamgroup.restaurantlistapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -10,10 +12,10 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 
-public class DetailRestaurant extends AppCompatActivity {
+public class DetailRestaurant extends AppCompatActivity implements View.OnClickListener {
 
     private TextView tvName, tvAddress, tvBusinessHour, tvDescription;
-    private ImageView ivRestaurant;
+    private ImageView ivRestaurant, btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +26,10 @@ public class DetailRestaurant extends AppCompatActivity {
         tvAddress = findViewById(R.id.tvAlamat);
         tvBusinessHour = findViewById(R.id.tvJam);
         tvDescription = findViewById(R.id.tvDeskripsi);
-        ivRestaurant = findViewById(R.id.ivMaps);
+        ivRestaurant = findViewById(R.id.ivDetailRestoran);
+
+        btn_back = findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
 
         Bundle restaurantBundle = getIntent().getBundleExtra("restaurantBundle");
         if (restaurantBundle != null) {
@@ -49,5 +54,11 @@ public class DetailRestaurant extends AppCompatActivity {
                     .apply(requestOptions)
                     .into(ivRestaurant);
         }
+    }
+
+    @Override
+    public void onClick(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
     }
 }
