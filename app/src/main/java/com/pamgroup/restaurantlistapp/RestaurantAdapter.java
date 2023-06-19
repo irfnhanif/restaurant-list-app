@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +18,7 @@ import androidx.appcompat.widget.AppCompatImageView;
 import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
@@ -53,6 +55,13 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         holder.tvName.setText(restaurant.getName());
         holder.tvAddress.setText(restaurant.getAddress());
+//        holder.ivRestoran.setImageURI(Uri.parse(restaurant.getImageURL()));
+
+        Glide.with(context)
+                .load(restaurant.getImageURL())
+                .placeholder(R.drawable.placeholder_restaurant) // Gambar placeholder yang ditampilkan saat gambar sedang dimuat
+                .error(R.drawable.placeholder_restaurant) // Gambar yang ditampilkan jika terjadi kesalahan saat memuat gambar
+                .into(holder.ivRestoran);
 
         Bundle restaurantBundle = new Bundle();
         restaurantBundle.putString("restaurantId", restaurant.getRestaurantId());
@@ -123,7 +132,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         private AppCompatImageView acivEdit, acivDelete;
         private ImageButton ibDetail;
 
-        private ImageView image;
+        private ImageView ivRestoran;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -134,7 +143,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             acivDelete = itemView.findViewById(R.id.aciv_delete);
             ibDetail = itemView.findViewById(R.id.ib_detail);
 
-            image = itemView.findViewById(R.id.upload_image);
+            ivRestoran = itemView.findViewById(R.id.ivRestoran);
         }
     }
 }

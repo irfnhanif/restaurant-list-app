@@ -11,25 +11,25 @@
         android:id="@+id/tv_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="12dp"
         android:fontFamily="sans-serif-medium"
         android:text="Restoran"
         android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ivRestoran"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tv_address"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="sans-serif-condensed"
-        android:textColor="@color/black"
         android:text="Alamat"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/ivRestoran"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
 
     <ImageView
@@ -64,5 +64,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/detail_icon" />
+
+    <ImageView
+        android:id="@+id/ivRestoran"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:scaleType="centerCrop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
