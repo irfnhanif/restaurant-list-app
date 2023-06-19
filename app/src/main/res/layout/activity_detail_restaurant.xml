@@ -6,4 +6,67 @@
     android:layout_height="match_parent"
     tools:context=".DetailRestaurant">
 
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="match_parent"
+        android:layout_height="218dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="355dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
+        <TextView
+            android:id="@+id/tvRestoran"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:text="Restoran Sumbersari"
+            android:textColor="#000000"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvJam"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:text="09:00 - 20:00" />
+
+        <TextView
+            android:id="@+id/tvAlamat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Jl. Sumbersari Gang 4 no 261" />
+
+        <TextView
+            android:id="@+id/tvDeskripsi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Restoran yang menyajikan makanan khas Indonesia terutama Jawa dengan menggunakan bumbu khas dan bahan masakan yang spesial. " />
+
+        <ImageView
+            android:id="@+id/ivMaps"
+            android:layout_width="413dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+            tools:srcCompat="@drawable/detail_maps" />
+    </LinearLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
