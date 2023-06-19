@@ -25,6 +25,7 @@ public class EditRestaurant extends AppCompatActivity implements View.OnClickLis
     private Button btnCreate, btnHapus;
     private ImageView btnBack, btnChooseImage;
     private static final int PICK_IMAGE_REQUEST = 1;
+    private String restaurantId, imageURL;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +41,12 @@ public class EditRestaurant extends AppCompatActivity implements View.OnClickLis
         btnCreate = findViewById(R.id.btnCreate);
         btnChooseImage = findViewById(R.id.upload_image);
 
+        imageStorage = new ImageStorage();
+
         Bundle restaurantBundle = getIntent().getBundleExtra("restaurantBundle");
         if (restaurantBundle != null) {
+            restaurantId = restaurantBundle.getString("restaurantId");
+            imageURL = restaurantBundle.getString("imageURL");
             String name = restaurantBundle.getString("name");
             String address = restaurantBundle.getString("address");
             String businessHour = restaurantBundle.getString("businessHour");
@@ -71,9 +76,11 @@ public class EditRestaurant extends AppCompatActivity implements View.OnClickLis
                     return;
 
                 Thread thread = new Thread(() -> {
-                    String imageURL = imageStorage.getImageURL();
+                    if (imageStorage.getImageURL() != null) {
+                        imageURL = imageStorage.getImageURL();
+                    }
                     RestaurantDatabase database = new RestaurantDatabase();
-                    database.addRestaurant(name, address, businessHour, description, imageURL);
+                    database.editRestaurant(restaurantId, name, address, businessHour, description, imageURL);
                 });
                 thread.start();
                 finish();

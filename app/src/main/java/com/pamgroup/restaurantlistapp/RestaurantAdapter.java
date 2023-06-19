@@ -66,7 +66,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         Bundle restaurantBundle = new Bundle();
         restaurantBundle.putString("restaurantId", restaurant.getRestaurantId());
         restaurantBundle.putString("name", restaurant.getName());
-        restaurantBundle.putString("address", restaurant.getRestaurantId());
+        restaurantBundle.putString("address", restaurant.getAddress());
         restaurantBundle.putString("businessHour", restaurant.getBusinessHour());
         restaurantBundle.putString("description", restaurant.getDescription());
         restaurantBundle.putString("imageURL", restaurant.getImageURL());
