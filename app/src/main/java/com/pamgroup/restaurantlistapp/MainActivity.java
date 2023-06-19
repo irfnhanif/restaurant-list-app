@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Toast.makeText(MainActivity.this, "Failed to get restaurants data", Toast.LENGTH_SHORT).show();
             }
         });
+        
     }
 
     @Override

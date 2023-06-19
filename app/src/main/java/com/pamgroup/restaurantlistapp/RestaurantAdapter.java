@@ -1,6 +1,8 @@
 package com.pamgroup.restaurantlistapp;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -72,6 +74,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         holder.acivDelete.setOnClickListener(view -> {
 
+
+
         });
     }
 
@@ -96,6 +100,43 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             acivEdit = itemView.findViewById(R.id.aciv_edit);
             acivDelete = itemView.findViewById(R.id.aciv_delete);
             ibDetail = itemView.findViewById(R.id.ib_detail);
+
+            // Menambah aksi saat diklik
+            acivDelete.setOnClickListener(new View.OnClickListener() {
+
+                // Menambah alert dialog
+                @Override
+                public void onClick(View v) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                    builder.setTitle("Hapus Menu?");
+                    builder.setMessage("Anda yakin ingin hapus ? " + restaurantList);
+                    builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
+                        // Konfirmasi pilihan
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            int position = getAdapterPosition();
+
+                            if (position != RecyclerView.NO_POSITION) {
+                                restaurantList.remove(getAdapterPosition());
+                                notifyItemRemoved(getAdapterPosition());
+                            }
+
+                        }
+                    });
+                    // Batal pilihan
+                    builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+
+                        }
+                    });
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                }
+
+            }
+
+            );
         }
     }
 }
