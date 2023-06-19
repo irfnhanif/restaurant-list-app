@@ -47,8 +47,8 @@ public class RestaurantDatabase {
     }
 
 
-    public void addRestaurant(String name, String address, String businessHour, String description/*, String imageURL*/) {
-        Restaurant newRestaurant = new Restaurant(name, address, businessHour, description);
+    public void addRestaurant(String name, String address, String businessHour, String description, String imageURL) {
+        Restaurant newRestaurant = new Restaurant(name, address, businessHour, description, imageURL);
 
         DatabaseReference newRestaurantRef = mDatabase.child("restaurants").push();
         String newRestaurantId = newRestaurantRef.getKey();

@@ -12,11 +12,12 @@ public class Restaurant {
 
     }
 
-    public Restaurant(String name, String address, String description, String businessHour){
+    public Restaurant(String name, String address, String description, String businessHour, String imageURL){
         this.name = name;
         this.address = address;
         this.description = description;
         this.businessHour = businessHour;
+        this.imageURL = imageURL;
     }
     public String getRestaurantId() {
         return restaurantId;

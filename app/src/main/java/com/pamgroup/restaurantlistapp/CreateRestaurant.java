@@ -61,19 +61,6 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         btnBack.setOnClickListener(this);
         btnHapus.setOnClickListener(this);
         btnChooseImage.setOnClickListener(this);
-
-//        imagePickerLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(),
-//                result -> {
-//                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-//                        Uri imageURI = result.getData().getData();
-//                        Toast.makeText(this, imageURI.toString(), Toast.LENGTH_SHORT).show();
-//                        btnChooseImage.setImageURI(imageURI);
-//                        if (imageURI != null) {
-//                            String filePath = getFilePathFromContentUri(imageURI);
-//                            imageStorage.uploadImage(filePath);
-//                        }
-//                    }
-//                });
     }
 
     @Override
@@ -89,8 +76,9 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                     return;
 
                 Thread thread = new Thread(() -> {
+                    String imageURL = imageStorage.getImageURL();
                     RestaurantDatabase database = new RestaurantDatabase();
-                    database.addRestaurant(name, address, businessHour, description);
+                    database.addRestaurant(name, address, businessHour, description, imageURL);
                 });
 
                 thread.start();
@@ -142,7 +130,6 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         Intent imageIntent = new Intent(Intent.ACTION_GET_CONTENT);
         imageIntent.setType("image/*");
         imageIntent.setAction(Intent.ACTION_GET_CONTENT);
-//        imagePickerLauncher.launch(imageIntent);
         Toast.makeText(this, "tes button", Toast.LENGTH_SHORT).show();
         startActivityForResult(Intent.createChooser(imageIntent, "Select Image"), PICK_IMAGE_REQUEST);
     }
@@ -153,24 +140,10 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         if (requestCode == PICK_IMAGE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
             Uri selectedImageUri = data.getData();
             btnChooseImage.setImageURI(selectedImageUri);
-//            String filePath = getRealPathFromUri(selectedImageUri);
             if (selectedImageUri != null) {
-                String filePath = getFilePathFromContentUri(selectedImageUri);
-                imageStorage.uploadImage(filePath);
+                imageStorage.uploadImage(selectedImageUri);
             }
         }
-    }
-
-    private String getFilePathFromContentUri(Uri contentUri) {
-        String filePath = null;
-        String[] projection = {MediaStore.Images.Media.DATA};
-        Cursor cursor = getContentResolver().query(contentUri, projection, null, null, null);
-        if (cursor != null && cursor.moveToFirst()) {
-            int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.Images.Media.DATA);
-            filePath = cursor.getString(columnIndex);
-            cursor.close();
-        }
-        return filePath;
     }
 }
 
