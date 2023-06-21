@@ -10,6 +10,9 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -28,6 +31,9 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
     private TextView tvName, tvAddress, tvBusinessHour, tvDescription;
     private ImageView ivRestaurant, btn_back;
     private String restaurantName, imgUrl;
+
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +57,19 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
             String description = restaurantBundle.getString("description");
             imgUrl = restaurantBundle.getString("imageURL");
 
+            //API Emoji
+            String emojiUnicode = "\uD83C\uDF36";
+            SpannableString spannableString = new SpannableString(emojiUnicode + " " + restaurantName);
+            ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.purple_700));
+            spannableString.setSpan(foregroundSpan, 0, emojiUnicode.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
             if (imgUrl != null) {
                 downloadImage();
             }
 
-            tvName.setText(restaurantName);
+//            tvName.setText(restaurantName);
+            tvName.setText(spannableString);
             tvAddress.setText(address);
             tvBusinessHour.setText(businessHour);
             tvDescription.setText(description);
