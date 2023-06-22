@@ -162,6 +162,8 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnLihatMaps:
                 Intent intentmap = new Intent(this, MapsActivity.class);
+                startActivity(intentmap);
+                break;
         }
     }
 
