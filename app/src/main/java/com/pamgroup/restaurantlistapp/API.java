@@ -17,7 +17,7 @@ public class API {
     private static final String URL = "https://emojihub.yurace.pro/api/random/category/food-and-drink";
     public static RequestQueue requestQueue;
 
-    private API(Context context) {
+    API(Context context) {
         requestQueue = Volley.newRequestQueue(context.getApplicationContext());
     }
 

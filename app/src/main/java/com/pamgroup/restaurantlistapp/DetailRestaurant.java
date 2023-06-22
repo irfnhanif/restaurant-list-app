@@ -13,6 +13,7 @@ import android.provider.MediaStore;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -23,17 +24,17 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.pamgroup.restaurantlistapp.model.Emoji;
 
 import java.io.File;
 
 public class DetailRestaurant extends AppCompatActivity implements View.OnClickListener {
 
+    private API emojiAPI;
     private TextView tvName, tvAddress, tvBusinessHour, tvDescription;
     private ImageView ivRestaurant, btn_back;
     private String restaurantName, imgUrl;
-
-
-
+    private SpannableString spannableString;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +59,24 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
             imgUrl = restaurantBundle.getString("imageURL");
 
             //API Emoji
-            String emojiUnicode = "\uD83C\uDF36";
-            SpannableString spannableString = new SpannableString(emojiUnicode + " " + restaurantName);
-            ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.purple_700));
-            spannableString.setSpan(foregroundSpan, 0, emojiUnicode.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            emojiAPI = new API(this.getApplicationContext());
+            emojiAPI.getEmoji(new API.DataCallback(){
+
+                @Override
+                public void onDataReceived(Emoji emoji) {
+                    spannableString = new SpannableString(convertUnicode(emoji.getUniCode()) + " " + restaurantName);
+                    ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.purple_700));
+                    spannableString.setSpan(foregroundSpan, 0, emoji.getUniCode().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    tvName.setText(spannableString);
+                }
+
+                @Override
+                public void onError(Exception e) {
+                    Log.e("ERROR-EMOJI-FETCH", e.getMessage());
+                }
+            });
+            
 
 
             if (imgUrl != null) {
@@ -69,7 +84,6 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
             }
 
 //            tvName.setText(restaurantName);
-            tvName.setText(spannableString);
             tvAddress.setText(address);
             tvBusinessHour.setText(businessHour);
             tvDescription.setText(description);
@@ -138,4 +152,10 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    public String convertUnicode(String uniCode){
+        String newUnicode = uniCode.replace("U+", "0x");
+        int codepoint = Integer.decode(newUnicode);
+        return new String(Character.toChars(codepoint));
+    };
 }
