@@ -77,7 +77,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 String longitude = etLongitude.getText().toString();
                 String latitude = etLatitude.getText().toString();
 
-                if (!validateForm(name, address, businessHour, description))
+                if (!validateForm(name, address, businessHour, description, longitude, latitude))
                     return;
 
                 Thread thread = new Thread(() -> {
@@ -108,7 +108,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    private boolean validateForm(String name, String address, String businessHour, String description) {
+    private boolean validateForm(String name, String address, String businessHour, String description, String longitude, String latitude) {
         if (TextUtils.isEmpty(name)) {
             etName.setError("Masukkan nama restoran");
             return false;
@@ -126,6 +126,16 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 
         if (TextUtils.isEmpty(businessHour)) {
             etBusinessHour.setError("Masukkan jam buka-tutup restoran");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(longitude)) {
+            etBusinessHour.setError("Masukkan Longitude");
+            return false;
+        }
+
+        if (TextUtils.isEmpty(latitude)) {
+            etBusinessHour.setError("Masukkan Latitude");
             return false;
         }
 

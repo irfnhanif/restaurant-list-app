@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,8 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
     private String restaurantName, imgUrl;
     private SpannableString spannableString;
 
+    private Button btnLihatMaps;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +52,9 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
         btn_back = findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
+
+        btnLihatMaps = findViewById(R.id.btnLihatMaps);
+        btnLihatMaps.setOnClickListener(this);
 
         Bundle restaurantBundle = getIntent().getBundleExtra("restaurantBundle");
         if (restaurantBundle != null) {
@@ -149,8 +155,14 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        switch (view.getId()){
+            case R.id.btn_back:
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.btnLihatMaps:
+                Intent intentmap = new Intent(this, MapsActivity.class);
+        }
     }
 
     public String convertUnicode(String uniCode){
