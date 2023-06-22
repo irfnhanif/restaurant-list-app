@@ -34,7 +34,7 @@ import java.net.URLConnection;
 public class CreateRestaurant extends AppCompatActivity implements View.OnClickListener {
 
     private ImageStorage imageStorage;
-    private EditText etName, etAddress, etBusinessHour, etDescription;
+    private EditText etName, etAddress, etBusinessHour, etDescription, etLongitude, etLatitude;
     private Button btnCreate, btnHapus;
     private ImageView btnBack,  btnChooseImage;
     private ActivityResultLauncher<Intent> imagePickerLauncher;
@@ -57,6 +57,9 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
         btnCreate = findViewById(R.id.btnCreate);
         btnChooseImage = findViewById(R.id.upload_image);
 
+        etLongitude = findViewById(R.id.etLongitude);
+        etLatitude = findViewById(R.id.etLatitude);
+
         btnCreate.setOnClickListener(this);
         btnBack.setOnClickListener(this);
         btnHapus.setOnClickListener(this);
@@ -71,6 +74,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 String address = etAddress.getText().toString();
                 String businessHour = etBusinessHour.getText().toString();
                 String description = etDescription.getText().toString();
+                String longitude = etLongitude.getText().toString();
+                String latitude = etLatitude.getText().toString();
 
                 if (!validateForm(name, address, businessHour, description))
                     return;
@@ -78,7 +83,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 Thread thread = new Thread(() -> {
                     String imageURL = imageStorage.getImageURL();
                     RestaurantDatabase database = new RestaurantDatabase();
-                    database.addRestaurant(name, address, businessHour, description, imageURL);
+                    database.addRestaurant(name, address, businessHour, description, imageURL, longitude, latitude);
                 });
                 thread.start();
                 finish();
@@ -97,6 +102,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 etAddress.setText("");
                 etBusinessHour.setText("");
                 etDescription.setText("");
+                etLongitude.setText("");
+                etLatitude.setText("");
                 break;
         }
     }

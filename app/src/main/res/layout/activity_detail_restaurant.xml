@@ -30,7 +30,7 @@
     <LinearLayout
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
-        android:layout_height="355dp"
+        android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,6 @@
             android:id="@+id/tvRestoran"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:text="Restoran Sumbersari"
             android:textColor="#000000"
             android:textSize="20sp"
@@ -70,16 +69,18 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:text="Restoran yang menyajikan makanan khas Indonesia terutama Jawa dengan menggunakan bumbu khas dan bahan masakan yang spesial. " />
-
-        <ImageView
-            android:id="@+id/ivMaps"
-            android:layout_width="413dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-            tools:srcCompat="@drawable/detail_maps" />
     </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLihatMaps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Lihat di Maps"
+        android:backgroundTint="@color/button_add"
+        android:textAllCaps="false"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

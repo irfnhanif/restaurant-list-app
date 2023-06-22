@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.pamgroup.restaurantlistapp.helper.RestaurantCallback;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
@@ -23,6 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private RecyclerView rvRestaurantList;
     private RestaurantAdapter adapter;
     private ImageView btnAdd_restaurant;
+    private Button btnLogout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         rvRestaurantList = findViewById(R.id.rv_restaurant_list);
         btnAdd_restaurant = findViewById(R.id.btn_add_restaurant);
+        btnLogout = findViewById(R.id.btnLogout);
 
         adapter = new RestaurantAdapter(this);
         mDatabase = new RestaurantDatabase();
@@ -39,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         rvRestaurantList.setLayoutManager(new LinearLayoutManager(this));
 
         btnAdd_restaurant.setOnClickListener(this);
+        btnLogout.setOnClickListener(this);
     }
 
     @Override
@@ -66,7 +70,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 Intent addIntent = new Intent(this, CreateRestaurant.class);
                 startActivity(addIntent);
                 break;
-            //tinggal nambahin case lain
+            case R.id.btnLogout:
+                FirebaseAuth.getInstance().signOut();
+                Toast.makeText(MainActivity.this, "Anda telah Logout", Toast.LENGTH_SHORT).show();
+                Intent logoutIntent = new Intent(this, Splash.class);
+                startActivity(logoutIntent);
+                finish();
+                break;
         }
     }
 }
