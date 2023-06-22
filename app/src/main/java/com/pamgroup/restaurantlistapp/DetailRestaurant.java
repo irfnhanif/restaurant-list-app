@@ -38,6 +38,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
     private SpannableString spannableString;
 
     private Button btnLihatMaps;
+    private Bundle restaurantBundle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +57,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
         btnLihatMaps = findViewById(R.id.btnLihatMaps);
         btnLihatMaps.setOnClickListener(this);
 
-        Bundle restaurantBundle = getIntent().getBundleExtra("restaurantBundle");
+        restaurantBundle = getIntent().getBundleExtra("restaurantBundle");
         if (restaurantBundle != null) {
             restaurantName = restaurantBundle.getString("name");
             String address = restaurantBundle.getString("address");
@@ -130,7 +131,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
             storageRef.getFile(myFile).addOnSuccessListener(taskSnapshot -> {
                 // Local file berhasil created
-                Toast.makeText(this, "File downloaded", LENGTH_SHORT).show();
+                Toast.makeText(this, "Image downloaded", LENGTH_SHORT).show();
             }).addOnFailureListener(exception -> {
                 // Handle errors
                 Toast.makeText(getBaseContext(), "Download failed. Try again!", LENGTH_SHORT).show();
@@ -162,6 +163,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.btnLihatMaps:
                 Intent intentmap = new Intent(this, MapsActivity.class);
+                intentmap.putExtra("restaurantBundle", restaurantBundle);
                 startActivity(intentmap);
                 break;
         }

@@ -8,8 +8,6 @@ public class Restaurant {
     private String description;
     private String imageURL;
 
-
-
     private String longitude;
     private String latitude;
 
