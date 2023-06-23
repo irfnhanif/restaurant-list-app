@@ -7,10 +7,7 @@ public class Restaurant {
     private String businessHour;
     private String description;
     private String imageURL;
-
-    private String longitude;
-    private String latitude;
-
+    
     public Restaurant(){
 
     }
@@ -21,8 +18,6 @@ public class Restaurant {
         this.description = description;
         this.businessHour = businessHour;
         this.imageURL = imageURL;
-        this.longitude = longitude;
-        this.latitude = latitude;
     }
     public String getRestaurantId() {
         return restaurantId;
@@ -70,21 +65,5 @@ public class Restaurant {
 
     public void setImageURL(String imageURL) {
         this.imageURL = imageURL;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
     }
 }
