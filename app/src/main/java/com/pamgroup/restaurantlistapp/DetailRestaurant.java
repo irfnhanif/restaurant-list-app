@@ -79,7 +79,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                     String unicode = convertUnicode(emoji.getUniCode());
                     spannableString = new SpannableString(unicode + " " + restaurantName);
 
-                    ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.black));
+                    ForegroundColorSpan foregroundSpan2 = new ForegroundColorSpan(getResources().getColor(R.color.black));
 
                     int unicodeLength = unicode.length();
                     if (unicodeLength <= spannableString.length()) {

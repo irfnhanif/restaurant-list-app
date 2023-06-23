@@ -19,6 +19,8 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.bumptech.glide.request.RequestOptions;
 import com.pamgroup.restaurantlistapp.helper.RestaurantDatabase;
 import com.pamgroup.restaurantlistapp.model.Restaurant;
 
@@ -26,7 +28,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.ViewHolder> {
-
     private Context context;
     private List<Restaurant> restaurantList = new ArrayList<>();
 
@@ -55,12 +56,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
 
         holder.tvName.setText(restaurant.getName());
         holder.tvAddress.setText(restaurant.getAddress());
-//        holder.ivRestoran.setImageURI(Uri.parse(restaurant.getImageURL()));
+
+        RequestOptions requestOptions = new RequestOptions()
+                .placeholder(R.drawable.placeholder_restaurant)
+                .error(R.drawable.placeholder_restaurant);
 
         Glide.with(context)
                 .load(restaurant.getImageURL())
-                .placeholder(R.drawable.placeholder_restaurant) // Gambar placeholder yang ditampilkan saat gambar sedang dimuat
-                .error(R.drawable.placeholder_restaurant) // Gambar yang ditampilkan jika terjadi kesalahan saat memuat gambar
+                .apply(requestOptions)
+                .transition(DrawableTransitionOptions.withCrossFade())
                 .into(holder.ivRestoran);
 
         Bundle restaurantBundle = new Bundle();
@@ -72,7 +76,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         restaurantBundle.putString("imageURL", restaurant.getImageURL());
         restaurantBundle.putString("longitude", restaurant.getLongitude());
         restaurantBundle.putString("latitude", restaurant.getLatitude());
-
 
         holder.acivEdit.setOnClickListener(view -> {
             Intent editIntent = new Intent(holder.itemView.getContext(), EditRestaurant.class);
@@ -89,53 +92,41 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         holder.acivDelete.setOnClickListener(view -> {
             AlertDialog.Builder builder = new AlertDialog.Builder(context);
             builder.setTitle("Hapus Menu?");
-            builder.setMessage("Anda yakin ingin hapus " + restaurantList.get(holder.getAdapterPosition()).getName() +"?");
-            builder.setPositiveButton("Ya", new DialogInterface.OnClickListener() {
-                // Konfirmasi pilihan
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    int position = holder.getAdapterPosition();
-                    if (position != RecyclerView.NO_POSITION) {
-                        Thread thread = new Thread(() -> {
-                            RestaurantDatabase database = new RestaurantDatabase();
-                            RestaurantDatabase.DatabaseInterface di = isSuccess -> {
-                                if (isSuccess) {
-                                    restaurantList.remove(position);
-                                    notifyItemRemoved(position);
-                                }
-                            };
-                            database.deleteRestaurant(restaurantList.get(position).getRestaurantId(), di);
-                        });
-                        thread.start();
-                    }
+            builder.setMessage("Anda yakin ingin hapus " + restaurantList.get(holder.getAdapterPosition()).getName() + "?");
+            builder.setPositiveButton("Ya", (dialog, which) -> {
+                int itemPosition = holder.getAdapterPosition();
+                if (itemPosition != RecyclerView.NO_POSITION) {
+                    Thread thread = new Thread(() -> {
+                        RestaurantDatabase database = new RestaurantDatabase();
+                        RestaurantDatabase.DatabaseInterface di = isSuccess -> {
+                            if (isSuccess) {
+                                restaurantList.remove(itemPosition);
+                                notifyItemRemoved(itemPosition);
+                            }
+                        };
+                        database.deleteRestaurant(restaurantList.get(itemPosition).getRestaurantId(), di);
+                    });
+                    thread.start();
                 }
             });
-            // Batal pilihan
-            builder.setNegativeButton("Tidak", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-
-                }
-            });
-            AlertDialog dialog = builder.create();
-            dialog.show();
+            builder.setNegativeButton("Batal", (dialog, which) -> dialog.dismiss());
+            builder.show();
         });
     }
-
 
     @Override
     public int getItemCount() {
         return restaurantList.size();
     }
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView tvName, tvAddress;
-        private AppCompatImageView acivEdit, acivDelete;
-        private ImageButton ibDetail;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private ImageView ivRestoran;
+        private TextView tvName;
+        private TextView tvAddress;
+        private AppCompatImageView acivEdit;
+        private ImageButton ibDetail;
+        private AppCompatImageView acivDelete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,7 +136,6 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
             acivEdit = itemView.findViewById(R.id.aciv_edit);
             acivDelete = itemView.findViewById(R.id.aciv_delete);
             ibDetail = itemView.findViewById(R.id.ib_detail);
-
             ivRestoran = itemView.findViewById(R.id.ivRestoran);
         }
     }
