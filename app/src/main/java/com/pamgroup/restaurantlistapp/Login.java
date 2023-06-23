@@ -18,6 +18,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class Login extends AppCompatActivity {
 
@@ -42,7 +43,7 @@ public class Login extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(Login.this, Register.class);
                 startActivity(intent);
-//                finish();
+                finish();
             }
         });
 
@@ -53,16 +54,16 @@ public class Login extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
 
-                if(TextUtils.isEmpty(email)){
-                    Toast.makeText(Login.this, "Masukkan Email", Toast.LENGTH_SHORT).show();
+                if (TextUtils.isEmpty(email)){
+                    Toast.makeText(Login.this, "Masukkan Email dahulu", Toast.LENGTH_SHORT).show();
                     return;
                 }
                 if (TextUtils.isEmpty(password)){
-                    Toast.makeText(Login.this, "Masukkan Kata Sandi", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Login.this, "Masukkan Password", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                firebaseAuth.signInWithEmailAndPassword(email, password)
+                firebaseAuth.signInWithEmailAndPassword(email,password)
                         .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -70,7 +71,7 @@ public class Login extends AppCompatActivity {
                                     Toast.makeText(Login.this, "Login Berhasil", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(Login.this, MainActivity.class);
                                     startActivity(intent);
-                                    //finish();
+                                    finish();
                                 }
                                 else {
                                     Toast.makeText(Login.this, "Autentikasi Gagal", Toast.LENGTH_SHORT).show();
@@ -80,5 +81,17 @@ public class Login extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        FirebaseUser currentUser = firebaseAuth.getCurrentUser();
+        if (currentUser != null) {
+            Intent intent = new Intent(Login.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 }
