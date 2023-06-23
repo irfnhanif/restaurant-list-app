@@ -9,11 +9,15 @@
 
     <TextView
         android:id="@+id/tv_name"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="12dp"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-medium"
+        android:maxWidth="180dp"
+        android:maxLines="2"
+        android:singleLine="true"
         android:text="Restoran"
         android:textColor="@color/black"
         android:textSize="20sp"
@@ -22,16 +26,19 @@
 
     <TextView
         android:id="@+id/tv_address"
-        android:layout_width="wrap_content"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="20dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="8dp"
+        android:ellipsize="end"
         android:fontFamily="sans-serif-condensed"
+        android:maxWidth="180dp"
+        android:maxLines="2"
+        android:singleLine="true"
         android:text="Alamat"
         android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@+id/ivRestoran"
         app:layout_constraintTop_toBottomOf="@+id/tv_name" />
-
     <ImageView
         android:id="@+id/aciv_edit"
         android:layout_width="32dp"

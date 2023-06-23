@@ -129,15 +129,15 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
             return false;
         }
 
-        if (TextUtils.isEmpty(longitude)) {
-            etBusinessHour.setError("Masukkan Longitude");
-            return false;
-        }
-
-        if (TextUtils.isEmpty(latitude)) {
-            etBusinessHour.setError("Masukkan Latitude");
-            return false;
-        }
+//        if (TextUtils.isEmpty(longitude)) {
+//            etBusinessHour.setError("Masukkan Longitude");
+//            return false;
+//        }
+//
+//        if (TextUtils.isEmpty(latitude)) {
+//            etBusinessHour.setError("Masukkan Latitude");
+//            return false;
+//        }
 
         return true;
     }
