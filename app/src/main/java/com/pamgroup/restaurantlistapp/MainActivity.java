@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btnLogout:
                 FirebaseAuth.getInstance().signOut();
                 Toast.makeText(MainActivity.this, "Anda telah Logout", Toast.LENGTH_SHORT).show();
-                Intent logoutIntent = new Intent(this, Splash.class);
+                Intent logoutIntent = new Intent(this, OnBoarding.class);
                 startActivity(logoutIntent);
                 finish();
                 break;

@@ -163,6 +163,7 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
                 }
             });
             thread.start();
+            Toast.makeText(this, "Image uploaded", Toast.LENGTH_SHORT).show();
             runOnUiThread(() -> btnChooseImage.setImageURI(selectedImageUri));
         }
     }

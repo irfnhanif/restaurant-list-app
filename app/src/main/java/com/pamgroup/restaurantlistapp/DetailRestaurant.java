@@ -71,9 +71,22 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onDataReceived(Emoji emoji) {
+
                     spannableString = new SpannableString(convertUnicode(emoji.getUniCode()) + " " + restaurantName);
                     ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.black));
                     spannableString.setSpan(foregroundSpan, 0, emoji.getUniCode().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+                    String unicode = convertUnicode(emoji.getUniCode());
+                    spannableString = new SpannableString(unicode + " " + restaurantName);
+
+                    ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.black));
+
+                    int unicodeLength = unicode.length();
+                    if (unicodeLength <= spannableString.length()) {
+                        spannableString.setSpan(foregroundSpan, 0, unicodeLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else {
+                        spannableString.setSpan(foregroundSpan, 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
 
                     tvName.setText(spannableString);
                 }

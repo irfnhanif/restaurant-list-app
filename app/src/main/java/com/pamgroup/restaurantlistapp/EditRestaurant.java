@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -149,6 +150,7 @@ public class EditRestaurant extends AppCompatActivity implements View.OnClickLis
                 }
             });
             thread.start();
+            Toast.makeText(this, "Image iploaded!", Toast.LENGTH_SHORT).show();
             runOnUiThread(() -> btnChooseImage.setImageURI(selectedImageUri));
         }
     }
