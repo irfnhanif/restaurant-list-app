@@ -64,9 +64,17 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onDataReceived(Emoji emoji) {
-                    spannableString = new SpannableString(convertUnicode(emoji.getUniCode()) + " " + restaurantName);
-                    ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.purple_700));
-                    spannableString.setSpan(foregroundSpan, 0, emoji.getUniCode().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    String unicode = convertUnicode(emoji.getUniCode());
+                    spannableString = new SpannableString(unicode + " " + restaurantName);
+
+                    ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.black));
+
+                    int unicodeLength = unicode.length();
+                    if (unicodeLength <= spannableString.length()) {
+                        spannableString.setSpan(foregroundSpan, 0, unicodeLength, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    } else {
+                        spannableString.setSpan(foregroundSpan, 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                    }
 
                     tvName.setText(spannableString);
                 }
@@ -124,7 +132,7 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
             storageRef.getFile(myFile).addOnSuccessListener(taskSnapshot -> {
                 // Local file berhasil created
-                Toast.makeText(this, "File downloaded", LENGTH_SHORT).show();
+                Toast.makeText(this, "Image downloaded", LENGTH_SHORT).show();
             }).addOnFailureListener(exception -> {
                 // Handle errors
                 Toast.makeText(getBaseContext(), "Download failed. Try again!", LENGTH_SHORT).show();
