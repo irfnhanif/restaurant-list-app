@@ -96,7 +96,6 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                     Log.e("ERROR-EMOJI-FETCH", e.getMessage());
                 }
             });
-            
 
 
             if (imgUrl != null) {
