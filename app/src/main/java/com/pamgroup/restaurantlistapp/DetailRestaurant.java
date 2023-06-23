@@ -71,11 +71,11 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
                 @Override
                 public void onDataReceived(Emoji emoji) {
-<<<<<<< HEAD
+
                     spannableString = new SpannableString(convertUnicode(emoji.getUniCode()) + " " + restaurantName);
                     ForegroundColorSpan foregroundSpan = new ForegroundColorSpan(getResources().getColor(R.color.black));
                     spannableString.setSpan(foregroundSpan, 0, emoji.getUniCode().length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-=======
+
                     String unicode = convertUnicode(emoji.getUniCode());
                     spannableString = new SpannableString(unicode + " " + restaurantName);
 
@@ -87,7 +87,6 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                     } else {
                         spannableString.setSpan(foregroundSpan, 0, spannableString.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
                     }
->>>>>>> 81301c1a36650d44c729cab7468ab00a2eb5688b
 
                     tvName.setText(spannableString);
                 }
