@@ -103,7 +103,6 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                 downloadImage();
             }
 
-//            tvName.setText(restaurantName);
             tvAddress.setText(address);
             tvBusinessHour.setText(businessHour);
             tvDescription.setText(description);
@@ -173,11 +172,6 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
             case R.id.btn_back:
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
-                break;
-            case R.id.btnLihatMaps:
-                Intent intentmap = new Intent(this, MapsActivity.class);
-                intentmap.putExtra("restaurantBundle", restaurantBundle);
-                startActivity(intentmap);
                 break;
         }
     }

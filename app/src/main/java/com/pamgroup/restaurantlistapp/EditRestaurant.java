@@ -150,7 +150,7 @@ public class EditRestaurant extends AppCompatActivity implements View.OnClickLis
                 }
             });
             thread.start();
-            Toast.makeText(this, "Image iploaded!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Image uploaded!", Toast.LENGTH_SHORT).show();
             runOnUiThread(() -> btnChooseImage.setImageURI(selectedImageUri));
         }
     }
