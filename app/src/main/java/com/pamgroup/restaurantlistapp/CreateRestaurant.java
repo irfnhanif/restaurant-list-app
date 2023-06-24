@@ -50,8 +50,8 @@ public class CreateRestaurant extends AppCompatActivity implements View.OnClickL
 
         etName = findViewById(R.id.etNamaRestoran);
         etAddress = findViewById(R.id.etAlamat);
-        etBusinessHour = findViewById(R.id.etJamBukaTutup);
-        etDescription = findViewById(R.id.etDeskripsi);
+        etBusinessHour = findViewById(R.id.etDeskripsi);
+        etDescription = findViewById(R.id.etJamBukaTutup);
         btnBack = findViewById(R.id.btn_back);
         btnHapus = findViewById(R.id.btn_hapus);
         btnCreate = findViewById(R.id.btnCreate);
