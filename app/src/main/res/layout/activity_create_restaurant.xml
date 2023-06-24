@@ -151,7 +151,7 @@
                     android:background="@drawable/shape_input"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"
+                    android:inputType="numberDecimal|numberSigned"
                     android:padding="8dp"
                     android:textColor="@color/black" />
             </LinearLayout>
@@ -174,7 +174,7 @@
                     android:background="@drawable/shape_input"
                     android:ems="10"
                     android:gravity="start|top"
-                    android:inputType="textMultiLine"
+                    android:inputType="numberDecimal|numberSigned"
                     android:padding="8dp"
                     android:textColor="@color/black" />
             </LinearLayout>

@@ -74,8 +74,8 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Vi
         restaurantBundle.putString("businessHour", restaurant.getBusinessHour());
         restaurantBundle.putString("description", restaurant.getDescription());
         restaurantBundle.putString("imageURL", restaurant.getImageURL());
-//        restaurantBundle.putString("longitude", restaurant.getLongitude());
-//        restaurantBundle.putString("latitude", restaurant.getLatitude());
+        restaurantBundle.putString("longitude", restaurant.getLongitude());
+        restaurantBundle.putString("latitude", restaurant.getLatitude());
 
         holder.acivEdit.setOnClickListener(view -> {
             Intent editIntent = new Intent(holder.itemView.getContext(), EditRestaurant.class);

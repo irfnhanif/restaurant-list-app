@@ -1,11 +1,8 @@
 package com.pamgroup.restaurantlistapp;
 
-import static android.widget.Toast.LENGTH_SHORT;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.ContentValues;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
@@ -19,15 +16,15 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.pamgroup.restaurantlistapp.model.Emoji;
-
 import java.io.File;
+import static android.widget.Toast.LENGTH_SHORT;
 
 public class DetailRestaurant extends AppCompatActivity implements View.OnClickListener {
 
@@ -39,6 +36,9 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
 
     private Button btnLihatMaps;
     private Bundle restaurantBundle;
+
+    private Double longitude = 0.0;
+    private Double latitude = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +64,17 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
             String businessHour = restaurantBundle.getString("businessHour");
             String description = restaurantBundle.getString("description");
             imgUrl = restaurantBundle.getString("imageURL");
+
+            //get long lat
+            String lng =  restaurantBundle.getString("longitude");
+            String lat = restaurantBundle.getString("latitude");
+            if (lng != null) longitude = Double.parseDouble(lng);
+            if (lat != null) latitude = Double.parseDouble(lat);
+            if (latitude != 0.0 || longitude != 0.0) {
+                btnLihatMaps.setVisibility(View.VISIBLE);
+            } else {
+                btnLihatMaps.setVisibility(View.GONE);
+            }
 
             //API Emoji
             emojiAPI = new API(this.getApplicationContext());
@@ -172,6 +183,11 @@ public class DetailRestaurant extends AppCompatActivity implements View.OnClickL
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
                 break;
+
+            case R.id.btnLihatMaps:
+                String uri = "http://maps.google.com/maps?q=loc:" + latitude + "," + longitude;
+                Intent moveToMap = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+                startActivity(moveToMap);
         }
     }
 
