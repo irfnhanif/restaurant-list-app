@@ -7,11 +7,8 @@ public class Restaurant {
     private String businessHour;
     private String description;
     private String imageURL;
-
     private String longitude;
-
     private String latitude;
-
     public Restaurant(){
 
     }
